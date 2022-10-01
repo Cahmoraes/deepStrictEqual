@@ -1,3 +1,7 @@
+# Motivation
+
+This package perform deep strict equal between data structures.
+
 ## Usage
 
 ```js
