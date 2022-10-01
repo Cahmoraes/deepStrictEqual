@@ -1,1 +1,1 @@
-export { default as deepStrictEqual } from './deepStrictEqual'
+export { default as deepStrictEqual } from './deep-strict-equal'
