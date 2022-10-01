@@ -5,7 +5,7 @@ This package perform deep strict equal between data structures.
 ## Usage
 
 ```js
-import { deepStrictEqual } from 'deep-strict-equal'
+import { deepStrictEqual } from '@cahmoraes93/deep-strict-equal'
 
 deepStrictEqual({ foo: { bar: [1, 2] } }, { foo: { bar: [1, 2] } })
 //=> true
