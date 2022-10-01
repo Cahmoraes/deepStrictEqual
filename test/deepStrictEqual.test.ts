@@ -124,4 +124,46 @@ describe('deepStrictEqual Test Suite', () => {
 
     expect(deepStrictEqual(obj_1, obj_2)).toBeFalsy()
   })
+
+  it('should compare two instances with same values and return toBeTruthy', () => {
+    class Person {
+      name
+      constructor(name: string) {
+        this.name = name
+      }
+    }
+
+    const person_1 = new Person('caique')
+    const person_2 = new Person('caique')
+
+    expect(deepStrictEqual(person_1, person_2)).toBeTruthy()
+  })
+
+  it('should compare two instances with different values and return falsy', () => {
+    class Person {
+      name
+      constructor(name: string) {
+        this.name = name
+      }
+    }
+
+    const person_1 = new Person('caique')
+    const person_2 = new Person('thomas')
+
+    expect(deepStrictEqual(person_1, person_2)).toBeFalsy()
+  })
+
+  it('should compare two arrays and return truthy when they have same index values', () => {
+    const arr_1 = [1, 2, 3, 4, '5', { name: 'caique' }]
+    const arr_2 = [1, 2, 3, 4, '5', { name: 'caique' }]
+
+    expect(deepStrictEqual(arr_1, arr_2)).toBeTruthy()
+  })
+
+  it('should compare two arrays and return falsy when they not have same index values', () => {
+    const arr_1 = [1, 2, 3, 4, 5, { name: 'caique' }]
+    const arr_2 = [1, 2, 3, 4, '5', { name: 'caique' }]
+
+    expect(deepStrictEqual(arr_1, arr_2)).toBeFalsy()
+  })
 })
