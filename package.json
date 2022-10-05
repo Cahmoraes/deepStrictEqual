@@ -4,11 +4,14 @@
   "main": "./dist/index.js",
   "author": "Cahmoraes <ike.moraes93@gmail.com>",
   "keywords": [
-    "brasil",
-    "programação funcional",
-    "imutabilidade"
+    "brazil",
+    "functional programming",
+    "immutability",
+    "deep strict equal",
+    "compare",
+    "data structure"
   ],
-  "description": "Pacote para trabalhar com imutabilidade e clonagem profunda de estruturas de dados",
+  "description": "Package made to work with deep comparisons of complex data structures",
   "publishConfig": {
     "access": "public"
   },
