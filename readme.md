@@ -18,4 +18,25 @@ deepStrictEqual({ foo: { bar: 1 } }, { foo: { bar: 1 } })
 
 deepStrictEqual({ foo: { bar: 1 } }, { foo: { bar: '1' } })
 //=> false
+
+## Map
+
+const map_1 = new Map().set('name', 'caique')
+const map_2 = new Map().set('name', 'caique')
+
+deepStrictEqual(map_1, map_2)
+//=> true
+
+const map_1 = new Map().set('name', 'caique')
+const map_2 = new Map().set('name', 'thomas')
+
+deepStrictEqual(map_1, map_2)
+//=> false
+
+## Set
+const set_1 = new Set().add(1)
+const set_2 = new Set().add(1, 2)
+
+deepStrictEqual(set_1, set_2)
+//=> false
 ```
