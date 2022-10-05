@@ -93,8 +93,21 @@ const convertStructureToObject = (element: any) => {
     return element
   }
 
-  return Object.fromEntries(Array.from(element, (key) => [key, key]))
+  return structureStrategy(element)[typeOfElement(element)] ?? element
 }
+
+/**
+ * Return convert object strategy
+ * @date 05/10/2022 - 10:13:30
+ *
+ * @param {*} structure
+ * @returns {{ MAP: any; SET: any; DEFAULT: any; }}
+ */
+const structureStrategy = (structure: any) => ({
+  MAP: Array.from(structure),
+  SET: Array.from(structure, (key) => [key, key]),
+  DEFAULT: structure,
+})
 
 /**
  * Check if both data structures are equals
@@ -102,7 +115,7 @@ const convertStructureToObject = (element: any) => {
  *
  * @param {*} objA
  * @param {*} objB
- * @returns {boolean}
+ * @returns {boolean} true = equal, false = not equal
  */
 const deepStrictEqual = (objA: any, objB: any): boolean => {
   if (areElementsPrimitives(objA, objB)) {

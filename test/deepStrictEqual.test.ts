@@ -37,12 +37,10 @@ describe('deepStrictEqual Test Suite', () => {
       },
     }
 
-    expect(deepStrictEqual(obj_1, obj_2)).toBeTruthy()
-
     const o_1 = {
       name: 'caique',
       age: 29,
-      // [Symbol.iterator]() {},
+      [Symbol.iterator]() {},
       hobbies: [
         'books',
         'sports',
@@ -56,7 +54,7 @@ describe('deepStrictEqual Test Suite', () => {
     const o_2 = {
       name: 'caique',
       age: 29,
-      // [Symbol.iterator]() {},
+      [Symbol.iterator]() {},
       hobbies: [
         'books',
         'sports',
@@ -67,7 +65,8 @@ describe('deepStrictEqual Test Suite', () => {
       ],
     }
 
-    expect(o_1).toStrictEqual(o_2)
+    expect(deepStrictEqual(obj_1, obj_2)).toBeTruthy()
+    expect(deepStrictEqual(o_1, o_2)).toBeTruthy()
   })
   it('should return true when symbols are equals', () => {
     const kInfo = Symbol('key')
@@ -198,6 +197,46 @@ describe('deepStrictEqual Test Suite', () => {
   it('should compare two Maps and return falsy when they not have same entries values', () => {
     const map_1 = new Map().set('name', 'caique')
     const map_2 = new Map().set('name', 'thomas')
+
+    expect(deepStrictEqual(map_1, map_2)).toBeFalsy()
+  })
+
+  it('should compare two Maps with nested structures, and return truthy when they have same entries values', () => {
+    const func = () => {}
+
+    const map_1 = new Map()
+      .set('name', 'caique')
+      .set(func, 'func')
+      .set(func, func)
+      .set(new Map(), new Map())
+      .set(new Set(), 'set')
+
+    const map_2 = new Map()
+      .set('name', 'caique')
+      .set(func, 'func')
+      .set(func, func)
+      .set(new Map(), new Map())
+      .set(new Set(), 'set')
+
+    expect(deepStrictEqual(map_1, map_2)).toBeTruthy()
+  })
+
+  it('should compare two Maps with nested structures, and return falsy when they not have same entries values', () => {
+    const func = () => {}
+
+    const map_1 = new Map()
+      .set('name', 'caique')
+      .set(func, 'func')
+      .set(func, func)
+      .set(new Map(), new Map())
+      .set(new Set(), 'set')
+
+    const map_2 = new Map()
+      .set('name', 'caique')
+      .set(func, 'func')
+      .set(func, func)
+      .set(new Map(), 'new Map()')
+      .set(new Set(), 'set')
 
     expect(deepStrictEqual(map_1, map_2)).toBeFalsy()
   })
