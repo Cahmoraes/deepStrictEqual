@@ -139,6 +139,13 @@ describe('deepStrictEqual Test Suite', () => {
     expect(deepStrictEqual(person_1, person_2)).toBeTruthy()
   })
 
+  it('should return falsy when compare two data types different', () => {
+    const set = new Set().add(1)
+    const map = new Map().set('name', 'thomas')
+
+    expect(deepStrictEqual(set, map)).toBeFalsy()
+  })
+
   it('should compare two instances with different values and return falsy', () => {
     class Person {
       name
@@ -165,5 +172,33 @@ describe('deepStrictEqual Test Suite', () => {
     const arr_2 = [1, 2, 3, 4, '5', { name: 'caique' }]
 
     expect(deepStrictEqual(arr_1, arr_2)).toBeFalsy()
+  })
+
+  it('should compare two Sets and return falsy when they not have same index values', () => {
+    const set_1 = new Set().add(1)
+    const set_2 = new Set().add(2)
+
+    expect(deepStrictEqual(set_1, set_2)).toBeFalsy()
+  })
+
+  it('should compare two Sets and return truthy when they have same index values', () => {
+    const set_1 = new Set().add(1)
+    const set_2 = new Set().add(1)
+
+    expect(deepStrictEqual(set_1, set_2)).toBeTruthy()
+  })
+
+  it('should compare two Maps and return truthy when they have same entries values', () => {
+    const map_1 = new Map().set('name', 'caique')
+    const map_2 = new Map().set('name', 'caique')
+
+    expect(deepStrictEqual(map_1, map_2)).toBeTruthy()
+  })
+
+  it('should compare two Maps and return falsy when they not have same entries values', () => {
+    const map_1 = new Map().set('name', 'caique')
+    const map_2 = new Map().set('name', 'thomas')
+
+    expect(deepStrictEqual(map_1, map_2)).toBeFalsy()
   })
 })
