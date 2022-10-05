@@ -38,7 +38,7 @@ const getOwnKeys = (element: any) => Reflect.ownKeys(element)
  * @param {*} elementB
  * @returns {boolean}
  */
-const arePropertiesLengthDifferent = (elementA: any, elementB: any) =>
+const arePropertiesLengthDifferent = (elementA: any, elementB: any): boolean =>
   getOwnKeys(elementA).length !== getOwnKeys(elementB).length
 
 /**
@@ -49,7 +49,7 @@ const arePropertiesLengthDifferent = (elementA: any, elementB: any) =>
  * @param {*} elementB
  * @returns {boolean}
  */
-const areElementsPrimitives = (elementA: any, elementB: any) =>
+const areElementsPrimitives = (elementA: any, elementB: any): boolean =>
   isPrimitive(elementA) && isPrimitive(elementB)
 
 /**
@@ -60,7 +60,7 @@ const areElementsPrimitives = (elementA: any, elementB: any) =>
  * @param {*} elementB
  * @returns {boolean}
  */
-const areDifferentTypes = (elementA: any, elementB: any) =>
+const areDifferentTypes = (elementA: any, elementB: any): boolean =>
   typeOfElement(elementA) !== typeOfElement(elementB)
 
 /**
@@ -69,9 +69,9 @@ const areDifferentTypes = (elementA: any, elementB: any) =>
  *
  * @param {*} elementA
  * @param {*} elementB
- * @returns {Boolean}
+ * @returns {Boolean} true: is equal, false: not equal
  */
-const compareElements = (elementA: any, elementB: any) =>
+const compareElements = (elementA: any, elementB: any): boolean =>
   getOwnKeys(elementA).every((elementAKey) =>
     Reflect.has(elementB, elementAKey)
       ? deepStrictEqual(elementB[elementAKey], elementA[elementAKey])
@@ -101,7 +101,7 @@ const convertStructureToObject = (element: any) => {
  * @date 05/10/2022 - 10:13:30
  *
  * @param {*} structure
- * @returns {{ MAP: any; SET: any; DEFAULT: any; }}
+ * @returns {{ MAP: any; SET: any; DEFAULT: any; }} Strategy
  */
 const structureStrategy = (structure: any) => ({
   MAP: Array.from(structure),

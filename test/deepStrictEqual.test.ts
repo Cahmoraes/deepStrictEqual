@@ -204,21 +204,49 @@ describe('deepStrictEqual Test Suite', () => {
   it('should compare two Maps with nested structures, and return truthy when they have same entries values', () => {
     const func = () => {}
 
+    const set_1 = new Set([1, 2, 3])
+
+    const map_1 = new Map()
+      .set('name', 'caique')
+      .set(func, 'func')
+      .set(func, func)
+      .set(new Map([['name', 'caique']]), new Map([['age', 28]]))
+      .set(set_1, 'set')
+
+    const set_2 = new Set([1, 2, 3])
+
+    const map_2 = new Map()
+      .set('name', 'caique')
+      .set(func, 'func')
+      .set(func, func)
+      .set(new Map([['name', 'caique']]), new Map([['age', 28]]))
+      .set(set_2, 'set')
+
+    expect(deepStrictEqual(map_1, map_2)).toBeTruthy()
+  })
+
+  it('should compare two Maps with nested structures, and return falsy when nested structure have different entries values', () => {
+    const func = () => {}
+
+    const set_1 = new Set([1, 2, 3, 5])
+
     const map_1 = new Map()
       .set('name', 'caique')
       .set(func, 'func')
       .set(func, func)
       .set(new Map(), new Map())
-      .set(new Set(), 'set')
+      .set(set_1, 'set')
+
+    const set_2 = new Set([1, 2, 3])
 
     const map_2 = new Map()
       .set('name', 'caique')
       .set(func, 'func')
       .set(func, func)
       .set(new Map(), new Map())
-      .set(new Set(), 'set')
+      .set(set_2, 'set')
 
-    expect(deepStrictEqual(map_1, map_2)).toBeTruthy()
+    expect(deepStrictEqual(map_1, map_2)).toBeFalsy()
   })
 
   it('should compare two Maps with nested structures, and return falsy when they not have same entries values', () => {
@@ -239,5 +267,21 @@ describe('deepStrictEqual Test Suite', () => {
       .set(new Set(), 'set')
 
     expect(deepStrictEqual(map_1, map_2)).toBeFalsy()
+  })
+
+  it('should compare two Structures with same Symbols, and return truthy when they are equals', () => {
+    const nameK = Symbol('name')
+    const ageK = Symbol('age')
+
+    const obj_1 = {
+      [nameK]: 'caique',
+      [ageK]: 28,
+    }
+    const obj_2 = {
+      [nameK]: 'caique',
+      [ageK]: 28,
+    }
+
+    expect(deepStrictEqual(obj_1, obj_2)).toBeTruthy()
   })
 })
