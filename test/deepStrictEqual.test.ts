@@ -138,6 +138,24 @@ describe('deepStrictEqual Test Suite', () => {
     expect(deepStrictEqual(person_1, person_2)).toBeTruthy()
   })
 
+  it('should compare an instance and another object with same properties and return truthy', () => {
+    class Person {
+      name
+      innerData
+      constructor(name: string) {
+        this.name = name
+        this.innerData = {
+          property: 'any_value',
+        }
+      }
+    }
+
+    const person_1 = new Person('caique')
+    const person_2 = { name: 'caique', innerData: { property: 'any_value' } }
+
+    expect(deepStrictEqual(person_1, person_2)).toBeTruthy()
+  })
+
   it('should return falsy when compare two data types different', () => {
     const set = new Set().add(1)
     const map = new Map().set('name', 'thomas')

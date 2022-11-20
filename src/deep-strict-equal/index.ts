@@ -60,7 +60,7 @@ const areElementsPrimitives = (elementA: any, elementB: any): boolean =>
  * @param {*} elementB
  * @returns {boolean}
  */
-const areDifferentTypes = (elementA: any, elementB: any): boolean =>
+const areDifferentTypes = (elementA: unknown, elementB: unknown): boolean =>
   typeOfElement(elementA) !== typeOfElement(elementB)
 
 /**
@@ -71,7 +71,7 @@ const areDifferentTypes = (elementA: any, elementB: any): boolean =>
  * @param {*} elementB
  * @returns {Boolean} true: is equal, false: not equal
  */
-const compareElements = (elementA: any, elementB: any): boolean =>
+const compareElements = (elementA: object, elementB: object): boolean =>
   getOwnKeys(elementA).every((elementAKey) =>
     Reflect.has(elementB, elementAKey)
       ? deepStrictEqual(elementB[elementAKey], elementA[elementAKey])
@@ -96,6 +96,8 @@ const convertStructureToObject = (element: any) => {
   return structureStrategy(element)[typeOfElement(element)] ?? element
 }
 
+type StructureType = Map<unknown, unknown> | Set<unknown>
+
 /**
  * Return convert object strategy
  * @date 05/10/2022 - 10:13:30
@@ -103,10 +105,9 @@ const convertStructureToObject = (element: any) => {
  * @param {*} structure
  * @returns {{ MAP: any; SET: any; DEFAULT: any; }} Strategy
  */
-const structureStrategy = (structure: any) => ({
+const structureStrategy = (structure: StructureType) => ({
   MAP: Array.from(structure),
   SET: Array.from(structure, (key) => [key, key]),
-  DEFAULT: structure,
 })
 
 /**
@@ -117,7 +118,7 @@ const structureStrategy = (structure: any) => ({
  * @param {*} objB
  * @returns {boolean} true = equal, false = not equal
  */
-const deepStrictEqual = (objA: any, objB: any): boolean => {
+const deepStrictEqual = (objA: unknown, objB: unknown): boolean => {
   if (areElementsPrimitives(objA, objB)) {
     return Object.is(objA, objB)
   }
