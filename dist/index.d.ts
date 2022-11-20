@@ -6,6 +6,6 @@
  * @param {*} objB
  * @returns {boolean} true = equal, false = not equal
  */
-declare const deepStrictEqual: (objA: any, objB: any) => boolean;
+declare const deepStrictEqual: (objA: unknown, objB: unknown) => boolean;
 
 export { deepStrictEqual };
